@@ -1,0 +1,23 @@
+query UserProfile($username: String!) {
+  user(login: $username) {
+    name
+    url
+    avatarUrl
+    repositories {
+      totalCount
+    }
+    topRepositories(first: 3, orderBy: { field: UPDATED_AT, direction: DESC }) {
+      nodes {
+        url
+          name
+          stargazerCount
+          languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
+            nodes {
+              name
+            }
+          }
+      }
+    }
+  }
+}
+
