@@ -29,7 +29,7 @@ public class RegistrationCommand {
 
           registrations.register(discordUserId, githubUsername);
 
-          return DiscordResponse.of(Emoji.CHECKMARK + "You have been registred");
+          return DiscordResponse.of(Emoji.CHECKMARK + "You have been registered");
         });
   }
 }
