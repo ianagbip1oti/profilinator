@@ -3,8 +3,11 @@ package com.github.princesslana.profilinator;
 import com.github.princesslana.smalld.SmallD;
 import com.google.common.base.Preconditions;
 import disparse.parser.reflection.Injectable;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Config {
+
+  private static final Dotenv ENV = Dotenv.load();
 
   private static final SmallD SMALLD = SmallD.create(getToken());
 
@@ -15,7 +18,7 @@ public class Config {
   }
 
   public static String getToken() {
-    return Preconditions.checkNotNull(System.getenv("PROF_TOKEN"));
+    return Preconditions.checkNotNull(ENV.get("PROF_TOKEN"));
   }
 
   @Injectable
