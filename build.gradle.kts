@@ -18,6 +18,7 @@ dependencies {
     implementation("com.github.princesslana:smalld:0.2.6")
     implementation("com.github.princesslana:somedb:0.1.0")
     implementation("com.google.guava:guava:28.0-jre")
+    implementation("io.github.cdimascio:dotenv-java:2.2.0")
     runtimeOnly("org.slf4j:slf4j-simple:2.0.0-alpha1")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
