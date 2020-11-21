@@ -18,7 +18,10 @@ dependencies {
     implementation("com.github.princesslana:smalld:0.2.6")
     implementation("com.github.princesslana:somedb:0.1.0")
     implementation("com.google.guava:guava:28.0-jre")
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.squareup.okhttp3:okhttp:3.12.11")
     implementation("io.github.cdimascio:dotenv-java:2.2.0")
+    implementation("org.slf4j:slf4j-api:2.0.0-alpha1")
     runtimeOnly("org.slf4j:slf4j-simple:2.0.0-alpha1")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
