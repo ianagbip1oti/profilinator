@@ -19,4 +19,12 @@ public class RegistrationDao {
             discordId)
         .findFirst();
   }
+
+  public Optional<String> findDiscordId(String githubUsername) {
+    return TheDB.select(
+            rs -> rs.getString("discord_user_id"),
+            "select discord_user_id from registration where github_username = ?",
+            githubUsername)
+        .findFirst();
+  }
 }
