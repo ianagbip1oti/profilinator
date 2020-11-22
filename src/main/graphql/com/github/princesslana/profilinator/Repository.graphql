@@ -1,0 +1,20 @@
+query Repository($owner: String!, $name: String!) {
+  repository(owner: $owner, name: $name) {
+    name
+    url
+    stargazerCount
+    owner {
+      login
+        url
+        avatarUrl
+    }
+    licenseInfo {
+      name
+    }
+    languages(first: 3, orderBy: { field: SIZE, direction: DESC }) {
+      nodes {
+        name
+      }
+    }
+  }
+}

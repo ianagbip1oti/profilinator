@@ -14,16 +14,18 @@ public class Config {
 
   private static final SmallD SMALLD = SmallD.create(getDiscordToken());
 
+  private static final OkHttpClient GITHUB_HTTP_CLIENT =
+      new OkHttpClient.Builder()
+          .addInterceptor(addHeader("Authorization", "bearer " + getGithubToken()))
+          .build();
+
   private static final ApolloClient APOLLO_CLIENT =
       ApolloClient.builder()
           .serverUrl("https://api.github.com/graphql")
-          .okHttpClient(
-              new OkHttpClient.Builder()
-                  .addInterceptor(addHeader("Authorization", "bearer " + getGithubToken()))
-                  .build())
+          .okHttpClient(GITHUB_HTTP_CLIENT)
           .build();
 
-  private static final GithubDao GITHUB_DAO = new GithubDao(APOLLO_CLIENT);
+  private static final GithubDao GITHUB_DAO = new GithubDao(APOLLO_CLIENT, GITHUB_HTTP_CLIENT);
   private static final RegistrationDao REGISTRATION_DAO = new RegistrationDao();
 
   public static SmallD getSmallD() {
