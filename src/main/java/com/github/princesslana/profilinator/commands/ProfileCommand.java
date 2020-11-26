@@ -3,12 +3,15 @@ package com.github.princesslana.profilinator.commands;
 import com.github.princesslana.profilinator.GithubDao;
 import com.github.princesslana.profilinator.Profile;
 import com.github.princesslana.profilinator.RegistrationDao;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import disparse.discord.smalld.DiscordRequest;
 import disparse.discord.smalld.DiscordResponse;
 import disparse.parser.reflection.CommandHandler;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +34,14 @@ public class ProfileCommand {
   public DiscordResponse profile() {
     return Try.run(
         () -> {
-          var discordUserId = request.getDispatcher().identityFromEvent(request.getEvent());
+          Preconditions.checkArgument(
+              request.getArgs().size() <= 1, "Only one profile may be requested");
+
           var githubUsername =
-              registrations
-                  .findGithubUsername(discordUserId)
+              resolveGithubUsername(
+                      request.getArgs().stream()
+                          .findFirst()
+                          .orElse(request.getDispatcher().identityFromEvent(request.getEvent())))
                   .orElseThrow(() -> new IllegalArgumentException("No github username registered"));
 
           var profile =
@@ -46,6 +53,21 @@ public class ProfileCommand {
 
           return DiscordResponse.of(ProfileCommand.toEmbed(profile));
         });
+  }
+
+  private Optional<String> resolveGithubUsername(String arg) {
+    var isDigit = CharMatcher.inRange('0', '9');
+    var isDiscordId = isDigit.matchesAllOf(arg);
+    var isMention = arg.startsWith("<");
+
+    if (isDiscordId) {
+      return registrations.findGithubUsername(arg);
+    } else if (isMention) {
+      var discordId = isDigit.retainFrom(arg);
+      return registrations.findGithubUsername(discordId);
+    } else {
+      return Optional.of(arg);
+    }
   }
 
   private static JsonElement toEmbed(Profile p) {
