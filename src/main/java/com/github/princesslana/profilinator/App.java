@@ -11,7 +11,7 @@ public class App {
     var disparse =
         new Dispatcher.Builder(App.class)
             .withSmalldClient(Config.getSmallD())
-            .prefix("gh!")
+            .prefix(Config.getPrefix())
             .build();
 
     Dispatcher.init(disparse);

@@ -12,6 +12,10 @@ public class RegistrationDao {
         githubUsername);
   }
 
+  public void unregister(String discordId) {
+    TheDB.execute("delete from registration where discord_user_id = ?", discordId);
+  }
+
   public Optional<String> findGithubUsername(String discordId) {
     return TheDB.select(
             rs -> rs.getString("github_username"),
