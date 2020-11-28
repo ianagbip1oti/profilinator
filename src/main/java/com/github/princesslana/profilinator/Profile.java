@@ -11,7 +11,7 @@ public class Profile {
   }
 
   public String getName() {
-    return user.name;
+    return user.name == null ? user.login : user.name;
   }
 
   public String getProfileUrl() {
