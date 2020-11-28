@@ -10,7 +10,7 @@ import okhttp3.OkHttpClient;
 
 public class Config {
 
-  private static final Dotenv ENV = Dotenv.load();
+  private static final Dotenv ENV = Dotenv.configure().ignoreIfMissing().load();
 
   private static final SmallD SMALLD = SmallD.create(getDiscordToken());
 
