@@ -32,4 +32,13 @@ public class RegistrationCommand {
           return DiscordResponse.of(Emoji.CHECKMARK + "You have been registered");
         });
   }
+
+  @CommandHandler(commandName = "unregister")
+  public DiscordResponse unregister() {
+    var discordUserId = request.getDispatcher().identityFromEvent(request.getEvent());
+
+    registrations.unregister(discordUserId);
+
+    return DiscordResponse.of(Emoji.CHECKMARK + "You have been unregistered");
+  }
 }

@@ -32,6 +32,10 @@ public class Config {
     return SMALLD;
   }
 
+  public static String getPrefix() {
+    return ENV.get("PROF_PREFIX", "gh!");
+  }
+
   public static String getDiscordToken() {
     return Preconditions.checkNotNull(ENV.get("PROF_DISCORD_TOKEN"));
   }
