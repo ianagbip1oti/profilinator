@@ -22,8 +22,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.squareup.okhttp3:okhttp:3.12.11")
     implementation("io.github.cdimascio:dotenv-java:2.2.0")
-    implementation("org.slf4j:slf4j-api:2.0.0-alpha1")
-    runtimeOnly("org.slf4j:slf4j-simple:2.0.0-alpha1")
+    implementation("org.apache.logging.log4j:log4j-api:2.14.0")
+    runtimeOnly("org.apache.logging.log4j:log4j-core:2.14.0")
+    runtimeOnly("org.apache.logging.log4j:log4j-slf4j18-impl:2.14.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.1")
